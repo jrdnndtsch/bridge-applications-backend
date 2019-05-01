@@ -1,6 +1,7 @@
 module.exports = {
   client: "pg",
   connection: process.env.DATABASE_URL || {
+    host: "db",
     user: "admin",
     password: "admin",
     database: "bridge-applications-local"
