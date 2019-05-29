@@ -5,6 +5,7 @@ services:
     container_name: server
     build: ./
     command: yarn dev
+    dockerfile: "./dev/Dockerfile"
     ports:
       - 3000:3000
     volumes:

@@ -6,7 +6,7 @@
     "start": "node src/index.js",
     "test": "jest",
     "eslint": "eslint src",
-    "eslint:ci": "eslint src --format junit --output-file './reports/eslint/eslint-results.xml'",
+    "eslint:ci": "eslint src --format junit --output-file $ESLINT_REPORT",
     "dev": "nodemon src/index.js",
     "test:watch": "jest --watch",
     "db:migrate:latest": "knex migrate:latest",
