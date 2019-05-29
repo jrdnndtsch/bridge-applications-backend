@@ -1,14 +1,14 @@
 const config = require('../../../knexfile');
-const database = require('knex')(config);
 const { check, validationResult } = require('express-validator/check');
+const database = require("../../db");
+const User = require("./users.model");
 
 
 const index = (req, res, next) => {
-	return database('users').select('users.*', 'identities.name as identifier')
-													.leftJoin('user_identities', 'users.id', '=', 'user_identities.user_id')
-													.leftJoin('identities', 'identities.id', '=', 'user_identities.identity_id')
-													.then((users) => res.json({users}))
-													.catch((err) => next(err))
+	User.query()
+		.eager("identities")
+		.then(users => res.json({data: users}))
+		.catch((err) => next(err))
 }
 
 const show = (req, res, next) => {

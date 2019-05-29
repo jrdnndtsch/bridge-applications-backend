@@ -1,0 +1,24 @@
+version: 2
+jobs:
+  build:
+    docker:
+      - image: cicleci/node:10
+
+    steps:
+      - checkout
+      - run: mkdir reports && mkdir reports/eslint
+      - restore_cache:
+          name: Restore yarn package cache 
+          key:
+              - yarn-packages-{{ checksum "yarn.lock" }}
+      - run:
+          name: Install Dependencies
+          command: yarn install --frozen-lockfile
+      - save_cache:
+          name: Save yarn package
+          key: yarn-packages-{{ checksum "yarn.lock" }}
+
+      - run:
+          name: lint
+          command: yanr eslint
+          when: always

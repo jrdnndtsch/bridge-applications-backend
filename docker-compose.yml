@@ -1,4 +1,4 @@
-version: "2"
+version: "2.3"
 services:
   # Backend
   server:
@@ -10,6 +10,10 @@ services:
     volumes:
       - .:/app
     restart: unless-stopped
+    links:
+      - db
+    depends_on:
+      - db
   db:
     image: postgres
     ports:
@@ -18,3 +22,18 @@ services:
       POSTGRES_USER: "admin"
       POSTGRES_PASSWORD: "admin"
       POSTGRES_DB: "bridge-applications-local"
+    healthcheck:
+      test: "pg_isready -h 127.0.0.1 -p 5432 -U admin -d bridge-applications-local"
+      interval: 2s
+      timeout: 5s
+      retries: 5
+
+  migrations:
+    container_name: run_migrations
+    build: ./
+    command: npm run db:migrate:latest
+    links:
+      - db
+    depends_on:
+      db:
+        condition: service_healthy

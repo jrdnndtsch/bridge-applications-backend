@@ -7,7 +7,8 @@ const makeUser = () => {
     email: faker.internet.email(),
     pronouns: 'they/them', 
     employment_status: 'full_time', 
-    employer: faker.company.companyName()
+    employer: faker.company.companyName(), 
+    role: 'user'
   }
 }
 
