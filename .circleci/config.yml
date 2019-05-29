@@ -20,5 +20,5 @@ jobs:
 
       - run:
           name: lint
-          command: yanr eslint
+          command: yarn eslint
           when: always
