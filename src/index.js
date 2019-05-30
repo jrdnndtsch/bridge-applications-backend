@@ -10,7 +10,7 @@ const { errorHandler } = require("./middleware/error-handler");
 const app = express();
 
 // The port the express app will listen on
-const port = 3000;
+const port = PROCESS.ENV.PORT;
 
 logger.info("🤖 Initializing middleware");
 
